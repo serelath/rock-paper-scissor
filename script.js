@@ -25,8 +25,8 @@ var computerPlay = function() {
 
 // Who played what 
 function playHands(player, comp) {
-	document.querySelector('#player').src = 'images/' + player + '.jpg';
-	document.querySelector('#computer').src = 'images/' + comp() + '.jpg';
+	document.querySelector('#player').src = 'images/' + player + '.JPG';
+	document.querySelector('#computer').src = 'images/' + comp() + '.JPG';
 	
 }
 
