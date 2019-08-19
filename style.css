@@ -30,3 +30,12 @@ button > h1 {
     margin: 5px 30px;
     color: rgb(95, 25, 79);
 }
+.rock {
+    background-color: rgb(241, 84, 129);
+}
+.paper {
+    background-color: rgb(244,210,74);
+}
+.scissor {
+    background-color: rgb(127, 207, 218);
+}
