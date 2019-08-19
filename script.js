@@ -25,8 +25,8 @@ var computerPlay = function() {
 
 // Who played what 
 function playHands(player, comp) {
-	document.querySelector('#player').src = player + '.jpg';
-	document.querySelector('#computer').src = comp() + '.jpg';
+	document.querySelector('#player').src = 'images/' + player + '.jpg';
+	document.querySelector('#computer').src = 'images/' + comp() + '.jpg';
 	
 }
 
@@ -37,6 +37,7 @@ function check() {
 
 	playHands(playerPlay, computerPlay);
 
+	// Result text
 	var docPlug = function(result) {
 		switch(result) {
 			case 'lose':
@@ -53,10 +54,10 @@ function check() {
 		}
 	}
 
+	// Result conditions
 	if (playerPlay === computerPlay()) {
 		docPlug('tie');
 	} else if (playerPlay === 'Rock' && computerPlay() === 'Scissor') {
-
 		docPlug('win');
 	} else if (playerPlay === 'Scissor' && computerPlay() === 'Paper') {
 		docPlug('win');
