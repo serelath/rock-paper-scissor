@@ -1,0 +1,32 @@
+* {
+    font-family: 'Lexend Deca', sans-serif;
+}
+.images > div {
+    height: 150px;
+}
+.images > div > img::before {
+    content: "?";
+    font-size: 72px;
+    color: rgb(95, 25, 79);
+    border: 3px dashed rgb(95, 25, 79);
+    width: 150px;
+    height: 150px;
+    padding-top: 15px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+img {
+    height: 150px;
+    width: 150px;
+}
+button {
+    border: 3px solid rgb(95, 25, 79);
+    border-radius: 50px;
+    background-color: white;
+}
+button > h1 {
+    margin: 5px 30px;
+    color: rgb(95, 25, 79);
+}

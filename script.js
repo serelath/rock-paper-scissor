@@ -1,90 +1,80 @@
-var hands = ['Rock', 'Paper', 'Scissor'];
+// Record Tracker
+var record = function() {
+	var playerWins = 0;
+	var compWins = 0;
 
-function playRound(playerSelection, computerSelection) {
-
-	if (playerSelection === "Rock" && computerSelection === "Scissor") {
-		return "You win!";
-	} else if (playerSelection === "Paper" && computerSelection === "Scissor") {
-		return "You lose!";
-	} else if (playerSelection === "Scissor" && computerSelection === "Scissor") {
-		return "Tie!";
-   } else if (playerSelection === "Rock" && computerSelection === "Rock") {
-		return "Tie!";
-	} else if (playerSelection === "Paper" && computerSelection === "Rock") {
-		return "You win!";
-   } else if (playerSelection === "Scissor" && computerSelection === "Rock") {
-		return "You lose!";
-	} else if (playerSelection === "Rock" && computerSelection === "Paper") {
-		return "You lose!";
-   } else if (playerSelection === "Paper" && computerSelection === "Paper") {
-		return "Tie!";
-	} else if (playerSelection === "Scissor" && computerSelection === "Paper") {
-		return "You win!";
-   }
-
-};
-
-var playerPlay = function() {
-	var play = "";
-	return function(option) {
-		if (option === "Rock") {
-			play = "Rock";
-		} else if (option === "Paper") {
-			play = "Paper";
+	return function(win) {
+		if (win) {
+			playerWins++;
+			document.querySelector('.player-score').textContent = playerWins;
 		} else {
-			play = "Scissor";
+			compWins++;
+			document.querySelector('.comp-score').textContent = compWins;
 		}
-		return play;
+		return [playerWins, compWins];
 	}
-	
+}
+var playerWin = record();
+
+// Computer
+var computerPlay = function() {
+	var hands = ['Rock', 'Paper', 'Scissor'];
+	var x = Math.floor(Math.random() * 3);
+	return hands[x];
 };
 
-var playRock = function() {
-	// Computer's play
-	var computerPlay = (function() {
+// Who played what 
+function playHands(player, comp) {
+	document.querySelector('#player').src = player + '.jpg';
+	document.querySelector('#computer').src = comp() + '.jpg';
+	
+}
 
-		var x = Math.floor(Math.random() * 3);
+// Check who wins
+function check() {
 
-		return function() {
+	var playerPlay = this.textContent.replace(/[\n\r]+|[\s]{2,}/g, ' ').trim();
 
-			return hands[x];
+	playHands(playerPlay, computerPlay);
 
+	var docPlug = function(result) {
+		switch(result) {
+			case 'lose':
+				document.querySelector('.results').textContent = 'You lose!';
+				playerWin(false);
+				break; 
+			case 'win':
+				document.querySelector('.results').textContent = 'You win!';
+				playerWin(true);
+				break; 
+			case 'tie':
+					document.querySelector('.results').textContent = "It's a tie!";
+					break;
 		}
+	}
 
-	})();
-	
-	var computerSelection = computerPlay();
-	
-	// Determine win / lose
-	playRound("Rock", computerSelection);
+	if (playerPlay === computerPlay()) {
+		docPlug('tie');
+	} else if (playerPlay === 'Rock' && computerPlay() === 'Scissor') {
 
-	
-	console.log(playRound("Rock", computerSelection));
-};
+		docPlug('win');
+	} else if (playerPlay === 'Scissor' && computerPlay() === 'Paper') {
+		docPlug('win');
+	} else {
+		docPlug('lose');
+	}
 
-// When played
-//var playResult = (function() {
-//	
-//
-//	
-////	playRound(playerSelection, computerSelection);
-//	
-//	return {
-//		init: function() {
-//			console.log('running');
-//			clicked();
-//		}
-//	}
-//	
-//})();
+}
 
+// controller
+var controller = function() {
 
+	var setupEventListeners = function() {
+		var buttons = document.querySelectorAll('button');
+		buttons.forEach(button => button.addEventListener('click', check));
+	}
 
+	return setupEventListeners();
+}
 
-var playerSelection = playerPlay();
-
-//playResult.init();
-
-//console.log(playRound(playerSelection, computerSelection));
-
-document.querySelector('.rock').addEventListener('click', playRock);	
+controller();
